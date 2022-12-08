@@ -1,0 +1,18 @@
+server:
+  port: 8090
+
+spring:
+  data:
+    mongodb:
+      database: shop
+      authentication-database: admin
+      host: localhost
+      port: 27017
+      password: admin
+      username: admin
+  mvc:
+    pathmatch:
+      matching-strategy: = ANT_PATH_MATCHER
+
+rabbitmq:
+  addresses: localhost:5672
