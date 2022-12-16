@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+
+  mongo:
+    image: mongo:5.0
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: shop
+    networks:
+      - goreit
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2000M
+    environment:
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSWORD: admin
+    volumes:
+      - rabbitmq-data:/data/mq
+    networks:
+      - goreit
+
+networks:
+  goreit:
+
+volumes:
+  mongo-data:
+  rabbitmq-data:
